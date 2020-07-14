@@ -1,13 +1,13 @@
 <?php
 if($_SERVER['REQUEST_METHOD']=='POST')
 {
+    $exists = false;
     $showAlert = false;
+    $showError = false;
     include 'partials/_dbconnect.php';
     $username = $_POST['username'];
     $password = $_POST['password'];
     $cpassword = $_POST['cpassword'];
-    $exists = false;
-    $showError = false;
     if(($password == $cpassword)&& $exists == false){
         $sql = "INSERT INTO `users` (`username`, `password`, `dt`) VALUES ( '$username', '$password', current_timestamp())";
         $result = mysqli_query($conn,$sql);
@@ -69,7 +69,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     <input type="password" class="form-control" id="cpassword" name="cpassword">
    <?php if($showError){echo '<small id="emailHelp" class="form-text text-muted">Make Sure you type the same password </small>'; } ?>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Sign Up</button>
 </form>
     </div>
 
