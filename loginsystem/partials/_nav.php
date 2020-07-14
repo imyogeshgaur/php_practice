@@ -17,14 +17,14 @@ echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="nav-link" href="/loginsystem/welcome.php">Home <span class="sr-only">(current)</span></a>
       </li>';
 
-//       if(!$loggedin){
+      if(!$loggedin){
       echo '<li class="nav-item">
         <a class="nav-link" href="/loginsystem/login.php">Login</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/loginsystem/signup.php">Signup</a>
       </li>';
-//       }
+      }
 //       if($loggedin){
 //       echo '<li class="nav-item">
 //         <a class="nav-link" href="/loginsystem/logout.php">Logout</a>
