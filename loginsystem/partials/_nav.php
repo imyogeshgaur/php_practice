@@ -26,9 +26,9 @@ echo '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       </li>';
       }
 //       if($loggedin){
-//       echo '<li class="nav-item">
-//         <a class="nav-link" href="/loginsystem/logout.php">Logout</a>
-//       </li>';
+      echo '<li class="nav-item">
+        <a class="nav-link" href="/loginsystem/logout.php">Logout</a>
+      </li>';
 //     }
        
       
