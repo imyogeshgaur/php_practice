@@ -6,16 +6,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $username = $_POST["username"];
     $password = $_POST["password"];
     $cpassword = $_POST["cpassword"];
-    $exists=false;
-    if(($password == $cpassword) && $exists==false){
-        $sql = "INSERT INTO `users` ( `username`, `password`, `dt`) VALUES ('$username', '$password', current_timestamp())";
-        $result = mysqli_query($conn, $sql);
-        if ($result){
-            $showAlert = true;
-        }
+
+    // Check whether this username exists
+    $existSql = "SELECT * FROM `users` WHERE username = '$username'";
+    $result = mysqli_query($conn, $existSql);
+    $numExistRows = mysqli_num_rows($result);
+    if($numExistRows > 0){
+        $showError = "Username Already Exists";
     }
     else{
-        $showError = "Passwords do not match";
+        if(($password == $cpassword)){
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "INSERT INTO `users` ( `username`, `password`, `dt`) VALUES ('$username', '$hash', current_timestamp())";
+            $result = mysqli_query($conn, $sql);
+            if ($result){
+                $showAlert = true;
+            }
+        }
+        else{
+            $showError = "Passwords do not match";
+        }
     }
 }
     
@@ -56,15 +66,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     <div class="container my-4">
      <h1 class="text-center">Signup to our website</h1>
-     <form action="/loginsystem/signup.php" method="POST">
+     <form action="/loginsystem/signup.php" method="post">
         <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+            <input type="text" maxlength="11" class="form-control" id="username" name="username" aria-describedby="emailHelp">
             
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password">
+            <input type="password" maxlength="23" class="form-control" id="password" name="password">
         </div>
         <div class="form-group">
             <label for="cpassword">Confirm Password</label>
