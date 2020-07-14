@@ -1,6 +1,12 @@
 <?php
+if($_SERVER['REQUEST_METHOD']=='POST')
+{
+    include 'partials/_dbconnect.php';
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $cpassword = $_POST['cpassword'];
 
-include 'partials/_dbconnect.php';
+}
 
 ?>
 <!doctype html>
