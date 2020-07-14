@@ -6,13 +6,17 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     $username = $_POST['username'];
     $password = $_POST['password'];
     $cpassword = $_POST['cpassword'];
-    $exist = false;
+    $exists = false;
+    $showError = false;
     if(($password == $cpassword)&& $exists == false){
         $sql = "INSERT INTO `users` (`username`, `password`, `dt`) VALUES ( '$username', '$password', current_timestamp())";
         $result = mysqli_query($conn,$sql);
         if($result){
             $showAlert = true;
         }
+    }
+    else{
+        $showError = true;
     }
 }
 
@@ -40,6 +44,14 @@ if($_SERVER['REQUEST_METHOD']=='POST')
        </button>
      </div>';
    }
+   if($showError){
+    echo ' <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Oops!!</strong> Something happens wrong.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>';
+   }
    ?>
     <div class="container">
     <h1 class="text-center">Sign up to our Website</h1>
@@ -55,7 +67,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
   <div class="form-group">
     <label for="cpassword">Confirm Password</label>
     <input type="password" class="form-control" id="cpassword" name="cpassword">
-    <small id="emailHelp" class="form-text text-muted">Make Sure you type the same password </small>
+   <?php if($showError){echo '<small id="emailHelp" class="form-text text-muted">Make Sure you type the same password </small>'; } ?>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
