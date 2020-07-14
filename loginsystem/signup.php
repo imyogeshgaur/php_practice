@@ -1,11 +1,19 @@
 <?php
 if($_SERVER['REQUEST_METHOD']=='POST')
 {
+    $showAlert = false;
     include 'partials/_dbconnect.php';
     $username = $_POST['username'];
     $password = $_POST['password'];
     $cpassword = $_POST['cpassword'];
-
+    $exist = false;
+    if(($password == $cpassword)&& $exists == false){
+        $sql = "INSERT INTO `users` (`username`, `password`, `dt`) VALUES ( '$username', '$password', current_timestamp())";
+        $result = mysqli_query($conn,$sql);
+        if($result){
+            $showAlert = true;
+        }
+    }
 }
 
 ?>
@@ -23,12 +31,16 @@ if($_SERVER['REQUEST_METHOD']=='POST')
   </head>
   <body>
     <?php require 'partials/_nav.php';?>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>Success!</strong> Your account is created and you can login.
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+   <?php
+   if($showAlert){
+       echo ' <div class="alert alert-success alert-dismissible fade show" role="alert">
+       <strong>Success!</strong> Your account is created and you can login.
+       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>';
+   }
+   ?>
     <div class="container">
     <h1 class="text-center">Sign up to our Website</h1>
     <form action='/loginsystem/signup.php' method='POST'>
