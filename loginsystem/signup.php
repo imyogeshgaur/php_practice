@@ -1,6 +1,6 @@
 <?php
 
-
+include 'partials/_dbconnect.php';
 
 ?>
 <!doctype html>
@@ -28,7 +28,7 @@
     <form action='/loginsystem/signup.php' method='POST'>
   <div class="form-group">
     <label for="username">Username</label>
-    <input type="email" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+    <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
   </div>
   <div class="form-group">
     <label for="password">Password</label>
